@@ -21,8 +21,8 @@
       </VBox>
       <TableView fx:id="table" layoutX="182.0" layoutY="14.0" prefHeight="210.0" prefWidth="391.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn fx:id="idColumn" prefWidth="75.0" text="№" />
+          <TableColumn fx:id="nameColumn" prefWidth="150.0" text="Name" />
         </columns>
       </TableView>
    </children>

@@ -1,9 +1,8 @@
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import javax.jws.soap.SOAPBinding;
 import java.nio.Buffer;
@@ -13,9 +12,18 @@ import java.util.LinkedList;
 public class Controller {
 
     private Connection connection = null;
+    private ObservableList<User> users = FXCollections.observableArrayList();
+
+
 
     @FXML
     TableView<User> table;
+
+    @FXML
+    TableColumn<User, Integer> idColumn;
+
+    @FXML
+    TableColumn<User, String> nameColumn;
 
     @FXML
     TextField userName;
@@ -26,6 +34,11 @@ public class Controller {
     @FXML
     Button buttonConnect;
 
+    public void initialize() {
+        idColumn.setCellValueFactory(new PropertyValueFactory<User, Integer>("userId"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("name"));
+        table.setItems(users);
+    }
     @FXML
     public void connect() {
         try {
@@ -66,10 +79,10 @@ public class Controller {
                         "SELECT t.* FROM public.\"User\" t"
                 );
 
-                LinkedList<User> list = new LinkedList<User>();
+                //LinkedList<User> list = new LinkedList<User>()
 
                 while (resultSet.next()) {
-                    list.add(new User(
+                    users.add(new User(
                             resultSet.getInt(1),
                             resultSet.getString(2),
                             resultSet.getInt(3)
